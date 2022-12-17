@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "inquid/stripe-payment-links",
+    "description": "Service to handle Stripe's payment links",
     "keywords": [
-        ":vendor_name",
+        "inquid",
         "laravel",
-        ":package_slug"
+        "stripe-payment-links"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/inquid/stripe-payment-links",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Inquid SAS de CV",
+            "email": "contact@inquid.co",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Inquid\\StripePaymentLinks\\": "src",
+            "Inquid\\StripePaymentLinks\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Inquid\\StripePaymentLinks\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -61,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Inquid\\StripePaymentLinks\\StripePaymentLinksServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "StripePaymentLinks": "Inquid\\StripePaymentLinks\\Facades\\StripePaymentLinks"
             }
         }
     },

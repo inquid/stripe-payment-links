@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Inquid\StripePaymentLinks\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class StripePaymentLinksCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'stripe-payment-links';
 
     public $description = 'My command';
 
