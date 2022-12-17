@@ -14,6 +14,6 @@ interface LineItemsStripeLink
     public function getQuantity(): int;
 
     public function getAllowPromotionCodes(): bool;
-    
+
     public function getAdjustableQuantity(): array;
 }

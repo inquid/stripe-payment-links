@@ -4,9 +4,6 @@ namespace Inquid\StripePaymentLinks;
 
 use Stripe\StripeClient;
 
-/**
- * 
- */
 class StripePaymentLinks
 {
     protected StripeClient $stripe;
@@ -18,35 +15,34 @@ class StripePaymentLinks
         $this->stripe = Cashier::stripe($options);
     }
 
-    /**
-     * 
-     */
     public function setItems(array $products): self
     {
-        
     }
-    
-    public function redirectUrl(string $url): self {
+
+    public function redirectUrl(string $url): self
+    {
         $this->url = $url;
 
         return $this;
     }
 
-    public function allowPromotionCodes(bool $allowPromotionCodes): self{
+    public function allowPromotionCodes(bool $allowPromotionCodes): self
+    {
         $this->allowPromotionCodes = $allowPromotionCodes;
 
         return $this;
     }
 
-    public function generateStripeLink(): StripeLink {
+    public function generateStripeLink(): StripeLink
+    {
         $this->stripe->paymentLinks->create(
             [
-              'line_items' => [['price' => '{{PRICE_ID}}', 'quantity' => 1]],
-              'after_completion' => [
-                'type' => 'redirect',
-                'redirect' => ['url' => 'https://example.com'],
-              ],
+                'line_items' => [['price' => '{{PRICE_ID}}', 'quantity' => 1]],
+                'after_completion' => [
+                    'type' => 'redirect',
+                    'redirect' => ['url' => 'https://example.com'],
+                ],
             ]
-          );
+        );
     }
 }
