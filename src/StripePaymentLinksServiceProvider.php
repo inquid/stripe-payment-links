@@ -2,9 +2,9 @@
 
 namespace Inquid\StripePaymentLinks;
 
+use Inquid\StripePaymentLinks\Commands\StripePaymentLinksCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Inquid\StripePaymentLinks\Commands\StripePaymentLinksCommand;
 
 class StripePaymentLinksServiceProvider extends PackageServiceProvider
 {
