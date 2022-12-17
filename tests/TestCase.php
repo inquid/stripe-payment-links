@@ -3,8 +3,8 @@
 namespace Inquid\StripePaymentLinks\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Orchestra\Testbench\TestCase as Orchestra;
 use Inquid\StripePaymentLinks\StripePaymentLinksServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
