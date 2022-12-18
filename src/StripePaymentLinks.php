@@ -20,38 +20,51 @@ class StripePaymentLinks
 
     /** @var array The stripe line items */
     protected array $lineItems;
+
     /** @var string The URL to redirect the customer to */
     protected ?string $url = null;
-    /** @var bool $allowPromotionCodes allow promotions or not */
+
+    /** @var bool allow promotions or not */
     protected bool $allowPromotionCodes = false;
+
     /** @var array An array of the stripe prices ID's if available to not re-generate them */
     protected array $pricesIds = [];
+
     /** @var array An array of the stripe prices ID's if available to not re-generate them */
     protected array $productsIds = [];
-    /** @var bool $forceProductsCreation always create the products requesting them to the Stripe API */
+
+    /** @var bool always create the products requesting them to the Stripe API */
     protected bool $forceProductsCreation = true;
 
-    /** @var bool $forcePriceCreation always create the prices requesting them to the Stripe API */
+    /** @var bool always create the prices requesting them to the Stripe API */
     protected bool $forcePriceCreation = true;
-    /** @var bool $collectTaxes collect taxes or not */
+
+    /** @var bool collect taxes or not */
     protected bool $collectTaxes = false;
+
     /** @var string Collect Billing Address? */
     protected bool $billingAddressCollection = false;
+
     /** @var string Collect Shipping Address? */
     protected bool $shippingAddressCollection = false;
+
     /** @var array The rate of the shipping and other options */
     protected array $shippingOptions;
+
     /** @var array The information of the products or services to sell */
     protected array $items;
-    /** @var string $url */
+
+    /** @var string */
     protected string $subscriptionDescription = '';
+
     // The trial days of the subscription
     protected int $subscriptionTrialPeriod;
+
     // Collects the phone of the customer
     protected bool $collectPhone;
 
     /**
-     * @param array $options
+     * @param  array  $options
      */
     public function __construct(array $options = [])
     {
@@ -59,7 +72,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param array $items
+     * @param  array  $items
      * @return $this
      */
     public function setItems(array $items): StripePaymentLinks
@@ -70,7 +83,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param string $url
+     * @param  string  $url
      * @return $this
      */
     public function setRedirectUrl(string $url): StripePaymentLinks
@@ -81,7 +94,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param bool $allowPromotionCodes
+     * @param  bool  $allowPromotionCodes
      * @return $this
      */
     public function allowPromotionCodes(bool $allowPromotionCodes): StripePaymentLinks
@@ -92,7 +105,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param bool $collectTaxes
+     * @param  bool  $collectTaxes
      * @return $this
      */
     public function collectTaxes(bool $collectTaxes): StripePaymentLinks
@@ -103,7 +116,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param int $subscriptionTrialPeriod
+     * @param  int  $subscriptionTrialPeriod
      * @return StripePaymentLinks
      */
     public function setSubscriptionTrialPeriod(int $subscriptionTrialPeriod): StripePaymentLinks
@@ -114,7 +127,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param bool $collectPhone
+     * @param  bool  $collectPhone
      * @return StripePaymentLinks
      */
     public function setCollectPhone(bool $collectPhone): StripePaymentLinks
@@ -125,7 +138,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param array $pricesIds
+     * @param  array  $pricesIds
      * @return StripePaymentLinks
      */
     public function setPricesIds(array $pricesIds): StripePaymentLinks
@@ -136,7 +149,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param array $productsIds
+     * @param  array  $productsIds
      * @return StripePaymentLinks
      */
     public function setProductsIds(array $productsIds): StripePaymentLinks
@@ -147,17 +160,17 @@ class StripePaymentLinks
     }
 
     /**
-     * @param array $lineItems
+     * @param  array  $lineItems
      * @return StripePaymentLinks
+     *
      * @throws Exception
      */
     public function setLineItems(array $lineItems): StripePaymentLinks
     {
         $this->lineItems = array_map(static function (LineItemsStripeLink $lineItemsStripeLink) {
-
             $lineItem = [
-                'price'               => $lineItemsStripeLink->getPrice(),
-                'quantity'            => $lineItemsStripeLink->getQuantity(),
+                'price' => $lineItemsStripeLink->getPrice(),
+                'quantity' => $lineItemsStripeLink->getQuantity(),
                 'adjustable_quantity' => $lineItemsStripeLink->getAdjustableQuantity(),
             ];
 
@@ -172,7 +185,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param bool $forceProductsCreation
+     * @param  bool  $forceProductsCreation
      * @return StripePaymentLinks
      */
     public function setForceProductsCreation(bool $forceProductsCreation): StripePaymentLinks
@@ -183,7 +196,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param bool $forcePriceCreation
+     * @param  bool  $forcePriceCreation
      * @return StripePaymentLinks
      */
     public function setForcePriceCreation(bool $forcePriceCreation): StripePaymentLinks
@@ -194,7 +207,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param bool $billingAddressCollection
+     * @param  bool  $billingAddressCollection
      * @return StripePaymentLinks
      */
     public function setBillingAddressCollection(bool $billingAddressCollection): StripePaymentLinks
@@ -205,7 +218,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param bool $shippingAddressCollection
+     * @param  bool  $shippingAddressCollection
      * @return StripePaymentLinks
      */
     public function setShippingAddressCollection(bool $shippingAddressCollection): StripePaymentLinks
@@ -216,7 +229,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param array $shippingOptions
+     * @param  array  $shippingOptions
      * @return StripePaymentLinks
      */
     public function setShippingOptions(array $shippingOptions): StripePaymentLinks
@@ -227,7 +240,7 @@ class StripePaymentLinks
     }
 
     /**
-     * @param string $subscriptionDescription
+     * @param  string  $subscriptionDescription
      * @return StripePaymentLinks
      */
     public function setSubscriptionDescription(string $subscriptionDescription): StripePaymentLinks
@@ -241,13 +254,14 @@ class StripePaymentLinks
      * Generates the Payment Link.
      *
      * @return \Inquid\StripePaymentLinks\Models\PaymentUrlContract
+     *
      * @throws ApiErrorException
      */
     public function generateStripeLink(): PaymentUrlContract
     {
         if ($this->url !== null) {
             $constructor['after_completion'] = [
-                'type'     => 'redirect',
+                'type' => 'redirect',
                 'redirect' => ['url' => $this->url],
             ];
         }

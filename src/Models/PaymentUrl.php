@@ -33,7 +33,7 @@ class PaymentUrl implements PaymentUrlContract
     // TODO
     public function getQrUrl(): string
     {
-        return "";
+        return '';
     }
 
     public function __toString(): string

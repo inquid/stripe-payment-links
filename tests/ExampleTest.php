@@ -31,10 +31,10 @@ class Product implements ProductStripeLink
 
 class Price implements PriceStripeLink
 {
-
     protected string $stripeId;
 
     protected int $amount;
+
     protected Product $product;
 
     public function __construct(string $stripeId, int $amount, Product $product)
@@ -73,8 +73,11 @@ class Price implements PriceStripeLink
 class LineItems implements LineItemsStripeLink
 {
     protected string $priceStripeLink;
+
     protected int $quantity;
+
     protected bool $allowPromotionCodes;
+
     protected array $adjustableQuantity;
 
     public function __construct(string $priceStripeLinkId, int $quantity, bool $allowPromotionCodes = false, array $adjustableQuantity = [])
@@ -104,13 +107,11 @@ class LineItems implements LineItemsStripeLink
 $stripePaymentLinks = null;
 
 beforeAll(function () {
-
 });
 
 it('can test', function () {
-
     $stripePaymentLinks = new StripePaymentLinks([
-        'api_key' => 'sk_test_51HJWZJIgQJMkE1LLojRjf2XwsipOZ6vG1Cyn36Tp13i35IC3fos159QtMbUf6IRCGVAvoq4SP9hLVOuLL3hStsQN00dKzPp63F'
+        'api_key' => 'sk_test_51HJWZJIgQJMkE1LLojRjf2XwsipOZ6vG1Cyn36Tp13i35IC3fos159QtMbUf6IRCGVAvoq4SP9hLVOuLL3hStsQN00dKzPp63F',
     ]);
 
     $product = new Product('prod_N03eylyDkS6hd9', 'My Cool Product');
