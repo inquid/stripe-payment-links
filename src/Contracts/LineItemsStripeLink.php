@@ -9,11 +9,9 @@ namespace Inquid\StripePaymentLinks\Contracts;
  */
 interface LineItemsStripeLink
 {
-    public function getPrice(): PriceStripeLink;
+    public function getPrice(): string;
 
     public function getQuantity(): int;
-
-    public function getAllowPromotionCodes(): bool;
 
     public function getAdjustableQuantity(): array;
 }
