@@ -9,7 +9,7 @@ class PaymentLinkServiceMock extends PaymentLinkService
 {
     public function create($params = null, $opts = null): PaymentLink
     {
-        $paymentLink = new PaymentLink("plink_1234567");
+        $paymentLink = new PaymentLink('plink_1234567');
         $paymentLink->currency = 'usd';
         $paymentLink->url = 'https://checkout.stripe.com/test_payment_link';
 

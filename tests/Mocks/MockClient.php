@@ -4,50 +4,59 @@ namespace Inquid\StripePaymentLinks\Tests\Mocks;
 
 // Mock the Stripe API HTTP Client
 
-# Optionally extend Stripe\HttpClient\CurlClient
+// Optionally extend Stripe\HttpClient\CurlClient
 use Illuminate\Support\Str;
 use Stripe\HttpClient\CurlClient;
 
 class MockClient extends CurlClient
 {
     public $rbody = '{}';
+
     public $rcode = 200;
+
     public $rheaders = [];
+
     public $url;
 
-    public function __construct() {
-        $this->url = "https://checkout.stripe.com/pay/cs_test_".Str::random(32);
+    public function __construct()
+    {
+        $this->url = 'https://checkout.stripe.com/pay/cs_test_'.Str::random(32);
     }
 
     public function request($method, $absUrl, $headers, $params, $hasFile)
     {
         // Handle Laravel Cashier creating/getting a customer
-        if ($method == "get" && strpos($absUrl, "https://api.stripe.com/v1/customers/") === 0) {
-            $this->rBody = $this->getCustomer(str_replace("https://api.stripe.com/v1/customers/", "", $absUrl));
+        if ($method == 'get' && strpos($absUrl, 'https://api.stripe.com/v1/customers/') === 0) {
+            $this->rBody = $this->getCustomer(str_replace('https://api.stripe.com/v1/customers/', '', $absUrl));
+
             return [$this->rBody, $this->rcode, $this->rheaders];
         }
 
-        if ($method == "post" && $absUrl == "https://api.stripe.com/v1/customers") {
-            $this->rBody = $this->getCustomer("cus_".Str::random(14));
+        if ($method == 'post' && $absUrl == 'https://api.stripe.com/v1/customers') {
+            $this->rBody = $this->getCustomer('cus_'.Str::random(14));
+
             return [$this->rBody, $this->rcode, $this->rheaders];
         }
 
         // Handle creating a Stripe Checkout session
-        if ($method == "post" && $absUrl == "https://api.stripe.com/v1/checkout/sessions") {
+        if ($method == 'post' && $absUrl == 'https://api.stripe.com/v1/checkout/sessions') {
             $this->rBody = $this->getSession($this->url);
+
             return [$this->rBody, $this->rcode, $this->rheaders];
         }
 
-        if ($method == "post" && $absUrl == "https://api.stripe.com/v1/payment_links") {
+        if ($method == 'post' && $absUrl == 'https://api.stripe.com/v1/payment_links') {
             $this->rBody = $this->getLink($this->url);
+
             return [$this->rBody, $this->rcode, $this->rheaders];
         }
 
         return [$this->rbody, $this->rcode, $this->rheaders];
     }
 
-    protected function getLink(){
-        return <<<JSON
+    protected function getLink()
+    {
+        return <<<'JSON'
 {
   "id": "plink_1MGWByIgQJMkE1LL3dip5h91",
   "object": "payment_link",
@@ -94,10 +103,10 @@ class MockClient extends CurlClient
   "url": "https://buy.stripe.com/test_eVa15NcZc8Gn9puaEJ"
 }
 JSON;
-
     }
 
-    protected function getCustomer($id) {
+    protected function getCustomer($id)
+    {
         return <<<JSON
 {
   "id": "$id",
@@ -127,7 +136,6 @@ JSON;
   "tax_exempt": "none"
 }
 JSON;
-
     }
 
     protected function getSession($url)
@@ -170,6 +178,5 @@ JSON;
   "url": "$url"
 }
 JSON;
-
     }
 }
