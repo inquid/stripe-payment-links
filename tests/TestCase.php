@@ -5,6 +5,7 @@ namespace Inquid\StripePaymentLinks\Tests;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Inquid\StripePaymentLinks\StripePaymentLinksServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Stripe\Stripe;
 
 class TestCase extends Orchestra
 {
@@ -13,7 +14,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Inquid\\StripePaymentLinks\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn(string $modelName) => 'Inquid\\StripePaymentLinks\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 

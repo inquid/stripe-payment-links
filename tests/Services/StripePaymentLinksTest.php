@@ -4,7 +4,9 @@ use Inquid\StripePaymentLinks\Contracts\LineItemsStripeLink;
 use Inquid\StripePaymentLinks\Contracts\PriceStripeLink;
 use Inquid\StripePaymentLinks\Contracts\ProductStripeLink;
 use Inquid\StripePaymentLinks\StripePaymentLinks;
+use Inquid\StripePaymentLinks\Tests\Mocks\StripeClientMock;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Stripe\StripeClient;
 
 class Product implements ProductStripeLink
 {
@@ -104,25 +106,24 @@ class LineItems implements LineItemsStripeLink
     }
 }
 
-$stripePaymentLinks = null;
+it('I can create a payment link with a price ID and a quantity', function () {
+    // Create the mock HTTP client used by Stripe
+    $mockClient = new StripeClient();
+    $stripeClient = new StripeClientMock($mockClient);
 
-beforeAll(function () {
-});
-
-it('can test', function () {
     $stripePaymentLinks = new StripePaymentLinks([
-        'api_key' => 'sk_test_51HJWZJIgQJMkE1LLojRjf2XwsipOZ6vG1Cyn36Tp13i35IC3fos159QtMbUf6IRCGVAvoq4SP9hLVOuLL3hStsQN00dKzPp63F',
-    ]);
+        'api_key' => 'sk_test_1234',
+    ], $stripeClient);
 
-    $product = new Product('prod_N03eylyDkS6hd9', 'My Cool Product');
-    $price = new Price('price_1MG3WxIgQJMkE1LL0DczGwJb', '10', $product);
+    $product = new Product('prod_1234567', 'My Cool Product');
+    $price = new Price('price_1234567', '10', $product);
 
     $paymentLink = $stripePaymentLinks
-        ->setLineItems([new LineItems('price_1MG3WxIgQJMkE1LL0DczGwJb', '10')])
+        ->setLineItems([new LineItems('price_1234567', '10')])
         ->generateStripeLink();
 
     expect($paymentLink->getStripeObject())->not()->toBeNull()
         ->and($paymentLink->getStripeObject()->currency)->toEqual('usd')
-        ->and($paymentLink->getStripeObject()->id)->not()->toBeNull()
-        ->and($paymentLink->getQrImage())->toEqual(QrCode::generate($paymentLink->getStripeObject()->url));
+        ->and($paymentLink->getStripeObject()->id)->toEqual('plink_1234567')
+        ->and($paymentLink->getQrImage())->toEqual(QrCode::generate('https://checkout.stripe.com/test_payment_link'));
 });
