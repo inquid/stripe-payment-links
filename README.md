@@ -1,3 +1,4 @@
+# NOT READY FOR PRODUCTION
 # Service to handle Stripe's payment links
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/inquid/stripe-payment-links.svg?style=flat-square)](https://packagist.org/packages/inquid/stripe-payment-links)
